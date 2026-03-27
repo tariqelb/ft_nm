@@ -1,11 +1,12 @@
 NAME= ft_nm.out
 
-SRCS=	./ft_nm.c \
-	./ft_check_sections_headers_frames.c \
-	./ft_display_error.c \
-	./ft_check_errors_one.c \
+SRCS=	./ft_check_errors_one.c \
 	./ft_check_errors_two.c \
+	./ft_check_sections_headers_frames.c \
         ./ft_check_strtab_and_symtab.c \
+	./ft_display_error.c \
+	./ft_loop_over_symbols.c \
+	./ft_nm.c \
 	./ft_sort_display_output.c	
 
 all:

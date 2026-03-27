@@ -1,6 +1,6 @@
 #include "./ft_nm.h"
 
-int     ft_check_errors(int ac, char **av)
+int     ft_check_errors(int ac, char **av, int *is_64)
 {
         int     err;
 
@@ -11,7 +11,7 @@ int     ft_check_errors(int ac, char **av)
         }
         if (ft_check_file_exist_and_size(av[1]))
                 return (1);
-        if (ft_check_if_its_elf_file_and_hdrs_exist(av[1]))
+        if (ft_check_if_its_elf_file_and_hdrs_exist(av[1], is_64))
                 return (1);
 
         return (0);
