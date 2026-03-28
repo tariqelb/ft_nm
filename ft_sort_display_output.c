@@ -2,42 +2,42 @@
 
 t_output *ft_new_elem(long int addr, char type, char *name)
 {
-    t_output *node;
+	t_output *node;
 
-    node = malloc(sizeof(t_output));
-    if (!node)
-        return (NULL);
+	node = malloc(sizeof(t_output));
+	if (!node)
+		return (NULL);
 
-    node->addr = addr;
-    node->type = type;
-    node->name = strdup(name); // VERY IMPORTANT
-    node->next = NULL;
+	node->addr = addr;
+	node->type = type;
+	node->name = strdup(name); // VERY IMPORTANT
+	node->next = NULL;
 
-    return (node);
+	return (node);
 }
 
 void ft_add_new_elem(t_output **head, long int addr, char type, char *name)
 {
-    t_output *new_node;
-    t_output *tmp;
+	t_output	*new_node;
+	t_output	*tmp;
 
-    new_node = ft_new_elem(addr, type, name);
-    if (!new_node)
-        return;
+	new_node = ft_new_elem(addr, type, name);
+	if (!new_node)
+		return;
 
-    // if list empty
-    if (*head == NULL)
-    {
-        *head = new_node;
-        return;
-    }
+	// if list empty
+	if (*head == NULL)
+	{
+		*head = new_node;
+		return;
+	}
 
-    // go to last node
-    tmp = *head;
-    while (tmp->next)
-        tmp = tmp->next;
+	// go to last node
+	tmp = *head;
+	while (tmp->next)
+		tmp = tmp->next;
 
-    tmp->next = new_node;
+	tmp->next = new_node;
 }
 
 t_output *ft_sort_output(t_output *data)
@@ -87,7 +87,10 @@ void	ft_display_output(t_output *data)
 	printf("ft_display_output\n");
 	while (data != NULL)
 	{
-		printf("%016lx %c %s\n", data->addr, data->type, data->name);
+		if (data->type == 'U' || data->type == 'w' || data->type == 'v')
+			printf("%16s %c %s\n", "", data->type, data->name);
+		else
+			printf("%016lx %c %s\n", data->addr, data->type, data->name);
 		data = data->next;
 	}
 }

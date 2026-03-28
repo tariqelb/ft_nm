@@ -119,17 +119,18 @@ int	ft_loop_over_symbols(t_elf64_shdr symtab, t_elf64_shdr strtab, t_elf64_shdr 
 
 		if (name[0] == '\0')
 		    continue;
-
+		//ignore STT_FILE
+		if (ELF64_ST_TYPE(syms[i].st_info) == STT_SECTION)
+    			continue;
+		//Also ignore STT_SECTION
+		if (ELF64_ST_TYPE(syms[i].st_info) == STT_FILE)
+			continue;
+		
 		char type;
 
 		// 🔥 UNDEFINED
 		if (syms[i].st_shndx == SHN_UNDEF)
 			type = 'U';
-
-		// 🔥 INVALID index protection
-		else if (syms[i].st_shndx >= SHN_LORESERVE)
-			type = '?';
-
 		else
 		{
 			 t_elf64_shdr sec = sections[syms[i].st_shndx];

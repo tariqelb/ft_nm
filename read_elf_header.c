@@ -4,7 +4,7 @@
 #include <string.h>
 #include "./ft_nm.h"
 
-int	ft_loop_over_symbols(t_elf64_shdr symtab, t_elf64_shdr strtab, char *av)
+int	ft_loop_over_symbols_test(t_elf64_shdr symtab, t_elf64_shdr strtab, char *av)
 {
 	char *file;
 	struct stat st;
@@ -95,7 +95,7 @@ int	ft_get_section_headers(t_elf64_ehdr elf64, char *av)
 		printf("------------------------------------------\n");
 	}
 	close(fd);	
-	ft_loop_over_symbols(symtab, strtab, av);
+	ft_loop_over_symbols_test(symtab, strtab, av);
 	return (0);	
 }
 

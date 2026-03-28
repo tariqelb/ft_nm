@@ -116,6 +116,23 @@ typedef struct	s_output
 	struct s_output	*next;
 }		t_output;
 
+typedef struct	s_table
+{
+	t_elf32_shdr    symtab32;
+	t_elf32_shdr    strtab32;
+	t_elf32_shdr    *sections32;
+	t_elf64_shdr    symtab64;
+	t_elf64_shdr    strtab64;
+	t_elf64_shdr    *sections64;
+	t_elf32_ehdr	elf32;
+	t_elf64_ehdr	elf64;
+	int		fd;
+	char		filename;
+	int		is_64;
+	struct stat 	st;
+}		t_table;
+
+
 
 //file : ft_check_sections_header_frames.c
 int     ft_check_sections_headers_frames(int fd, t_elf64_ehdr elf64, size_t file_size);
@@ -129,15 +146,15 @@ int     ft_check_errors(int ac, char **av, int *is_64);
 int     ft_check_file_exist_and_size(char *filename);
 
 //file :  ft_check_errors_two.c
-int     ft_check_elf_headers_32(int fd, t_elf32_ehdr elf32, size_t file_size);
+int     ft_check_elf_headers_32(int fd, t_elf32_ehdr elf32, size_t file_size, char *filename);
 int     ft_check_if_its_elf_file_and_hdrs_exist(char *filename, int *is_64);
 int	ft_get_and_check_elf_header_magic_number(uint64_t *first8_ident,
 		uint64_t *second8_ident, t_elf64_ehdr elf64);
 
 
 //file : ft_check_strtab_and_symtab.c
-int	ft_check_strtab_and_symtab(int fd, t_elf64_ehdr elf64, size_t size);
-int	ft_check_strtab_and_symtab_32(int fd, t_elf32_ehdr elf32, size_t size);
+int	ft_check_strtab_and_symtab(int fd, t_elf64_ehdr elf64, size_t size, char *filename);
+int	ft_check_strtab_and_symtab_32(int fd, t_elf32_ehdr elf32, size_t size, char *filename);
 
 //file : ft_loop_over_symbols.c 
 int     ft_loop_over_symbols(t_elf64_shdr symtab, t_elf64_shdr strtab, t_elf64_shdr *sections,char *av);

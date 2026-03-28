@@ -5,10 +5,10 @@
 int	main(int ac, char **av)
 {
 	int	err;
-	int	is_64;
+	t_table	table;
 
-	is_64 = 0;	
-	err = ft_check_errors(ac, av, &is_64);
+	table.is_64 = 0;	
+	err = ft_check_errors(ac, av, &table);
 	if (err)
 		return (1);
 
