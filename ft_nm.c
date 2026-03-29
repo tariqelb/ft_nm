@@ -1,7 +1,5 @@
 #include "./ft_nm.h"
 
-
-
 int	main(int ac, char **av)
 {
 	int	err;
@@ -11,5 +9,8 @@ int	main(int ac, char **av)
 	err = ft_check_errors(ac, av, &table);
 	if (err)
 		return (1);
-
+	if (table.is_64 == 1)
+		ft_loop_over_symbols_32(&table);
+	else
+		ft_loop_over_symbols_64(&table);
 }

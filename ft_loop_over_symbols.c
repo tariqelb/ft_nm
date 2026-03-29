@@ -1,44 +1,44 @@
 #include "./ft_nm.h"
 
-int	ft_loop_over_symbols_32(t_elf32_shdr symtab, t_elf32_shdr strtab, t_elf32_shdr *sections, char *av)
+int	ft_loop_over_symbols_32(t_table *table)
 {
-	char *file;
-	struct stat st;
-	int fd = open(av, O_RDONLY);
+	char		*file;
+	struct stat	st;
 	t_output	*data;
 
-	if (fd < 0)
+	table->fd = open(table->filename, O_RDONLY);
+	if (table->fd < 0)
 		return (1);
 
-	fstat(fd, &st);
-	file = mmap(NULL, st.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+	fstat(table->fd, &table->st);
+	file = mmap(NULL, table->st.st_size, PROT_READ, MAP_PRIVATE, table->fd, 0);
 
 	if (file == MAP_FAILED)
 		return (1);
 
 	// safety checks
-	if (symtab.sh_entsize == 0 ||
-		symtab.sh_offset + symtab.sh_size > st.st_size ||
-		strtab.sh_offset + strtab.sh_size > st.st_size)
+	if (table->symtab32.sh_entsize == 0 ||
+		table->symtab32.sh_offset + table->symtab32.sh_size > table->st.st_size ||
+		table->strtab32.sh_offset + table->strtab32.sh_size > table->st.st_size)
 		return (1);
 
-	int count = symtab.sh_size / symtab.sh_entsize;
+	int count = table->symtab32.sh_size / table->symtab32.sh_entsize;
 	
 	data = NULL;
 
-	t_elf32_sym *syms = (t_elf32_sym *)(file + symtab.sh_offset);
-	char *strtab_data = (char *)(file + strtab.sh_offset);
+	t_elf32_sym *syms = (t_elf32_sym *)(file + table->symtab32.sh_offset);
+	char *strtab_data = (char *)(file + table->strtab32.sh_offset);
 
 	for (int i = 0; i < count; i++)
 	{
 	    // validate name offset
-		if (syms[i].st_name >= strtab.sh_size)
+		if (syms[i].st_name >= table->strtab32.sh_size)
 			continue;
 
 		char *name = strtab_data + syms[i].st_name;
 
 		// ensure null-terminated
-		if (!memchr(name, '\0', strtab.sh_size - syms[i].st_name))
+		if (!memchr(name, '\0', table->strtab32.sh_size - syms[i].st_name))
 		    continue;
 
 		if (name[0] == '\0')
@@ -56,7 +56,7 @@ int	ft_loop_over_symbols_32(t_elf32_shdr symtab, t_elf32_shdr strtab, t_elf32_sh
 
 		else
 		{
-			 t_elf32_shdr sec = sections[syms[i].st_shndx];
+			 t_elf32_shdr sec = table->sections32[syms[i].st_shndx];
 
 			if (sec.sh_type == SHT_NOBITS)
 				type = 'B';
@@ -72,49 +72,49 @@ int	ft_loop_over_symbols_32(t_elf32_shdr symtab, t_elf32_shdr strtab, t_elf32_sh
 	}
 	data = ft_sort_output(data);
 	ft_display_output(data);
-	free(data);
+	ft_clear_output(&data);
 	return (0);
 }
 
-int	ft_loop_over_symbols(t_elf64_shdr symtab, t_elf64_shdr strtab, t_elf64_shdr *sections, char *av)
+int	ft_loop_over_symbols_64(t_table *table)
 {
-	char *file;
-	struct stat st;
-	int fd = open(av, O_RDONLY);
+	char		*file;
+	struct stat	st;
 	t_output	*data;
 
-	if (fd < 0)
+	table->fd = open(table->filename, O_RDONLY);
+	if (table->fd < 0)
 		return (1);
 
-	fstat(fd, &st);
-	file = mmap(NULL, st.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+	fstat(table->fd, &table->st);
+	file = mmap(NULL, table->st.st_size, PROT_READ, MAP_PRIVATE, table->fd, 0);
 
 	if (file == MAP_FAILED)
 		return (1);
 
 	// safety checks
-	if (symtab.sh_entsize == 0 ||
-		symtab.sh_offset + symtab.sh_size > st.st_size ||
-		strtab.sh_offset + strtab.sh_size > st.st_size)
+	if (table->symtab64.sh_entsize == 0 ||
+		table->symtab64.sh_offset + table->symtab64.sh_size > table->st.st_size ||
+		table->strtab64.sh_offset + table->strtab64.sh_size > table->st.st_size)
 		return (1);
 
-	int count = symtab.sh_size / symtab.sh_entsize;
+	int count = table->symtab64.sh_size / table->symtab64.sh_entsize;
 	
 	data = NULL;
 
-	t_elf64_sym *syms = (t_elf64_sym *)(file + symtab.sh_offset);
-	char *strtab_data = (char *)(file + strtab.sh_offset);
+	t_elf64_sym *syms = (t_elf64_sym *)(file + table->symtab64.sh_offset);
+	char *strtab_data = (char *)(file + table->strtab64.sh_offset);
 
 	for (int i = 0; i < count; i++)
 	{
 	    // validate name offset
-		if (syms[i].st_name >= strtab.sh_size)
+		if (syms[i].st_name >= table->strtab64.sh_size)
 			continue;
 
 		char *name = strtab_data + syms[i].st_name;
 
 		// ensure null-terminated
-		if (!memchr(name, '\0', strtab.sh_size - syms[i].st_name))
+		if (!memchr(name, '\0', table->strtab64.sh_size - syms[i].st_name))
 		    continue;
 
 		if (name[0] == '\0')
@@ -133,7 +133,7 @@ int	ft_loop_over_symbols(t_elf64_shdr symtab, t_elf64_shdr strtab, t_elf64_shdr 
 			type = 'U';
 		else
 		{
-			 t_elf64_shdr sec = sections[syms[i].st_shndx];
+			 t_elf64_shdr sec = table->sections64[syms[i].st_shndx];
 
 			if (sec.sh_type == SHT_NOBITS)
 				type = 'B';
@@ -149,6 +149,6 @@ int	ft_loop_over_symbols(t_elf64_shdr symtab, t_elf64_shdr strtab, t_elf64_shdr 
 	}
 	data = ft_sort_output(data);
 	ft_display_output(data);
-	free(data);
+	ft_clear_output(&data);
 	return (0);
 }

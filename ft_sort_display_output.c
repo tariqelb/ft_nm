@@ -1,5 +1,26 @@
 #include "ft_nm.h"
 
+void    ft_clear_output(t_output **head)
+{
+	t_output	*tmp;
+
+	if (!head || !*head)
+		return;
+
+	while (*head)
+	{
+		tmp = (*head)->next;
+
+		// free allocated fields
+		free((*head)->name);
+
+		// free the node itself
+		free(*head);
+
+		*head = tmp;
+	}
+}
+
 t_output *ft_new_elem(long int addr, char type, char *name)
 {
 	t_output *node;

@@ -2,8 +2,6 @@
 
 int     ft_check_errors(int ac, char **av, t_table *table)
 {
-        int     err;
-
         if (ac < 2)
         {
                 ft_display_error("ft_nm : Error, messing file argument\n");
@@ -33,7 +31,7 @@ int     ft_check_file_exist_and_size(char *filename, t_table *table)
                 ft_display_error("ft_nm: ");
                 ft_display_error(filename);
                 ft_display_error(": file is empty\n");
-                close(fd);
+                close(table->fd);
                 return (1);
         }
         close(table->fd);

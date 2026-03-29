@@ -47,7 +47,7 @@ int     ft_check_if_its_elf_file_and_hdrs_exist(t_table *table)
 
 
         table->fd = open(table->filename, O_RDONLY);
-        if (fd < 3)
+        if (table->fd < 3)
         {
                 ft_display_error("ft_nm: ");
                 perror(table->filename);
@@ -61,7 +61,7 @@ int     ft_check_if_its_elf_file_and_hdrs_exist(t_table *table)
         first8_ident = 0;
         second8_ident = 0;
         //check elf header fit in file
-        if (table->st.st_size < sizeof(elf64))
+        if (table->st.st_size < sizeof(t_elf64_ehdr))
         {
                 ft_display_error("ft_nm: error reading elf header\n");
                 close(table->fd);
@@ -78,7 +78,7 @@ int     ft_check_if_its_elf_file_and_hdrs_exist(t_table *table)
 	if (table->is_64 == 1)
 	{
 		lseek(table->fd, 0, SEEK_SET);
-        	read(table->fd, &elf64, sizeof(t_elf32_ehdr));
+        	read(table->fd, &table->elf64, sizeof(t_elf32_ehdr));
 		if (ft_check_elf_headers_32(table))
 		{
 			close(table->fd);
@@ -109,7 +109,7 @@ int     ft_check_if_its_elf_file_and_hdrs_exist(t_table *table)
 	if (ft_check_strtab_and_symtab(table))
 		return (1);
         //reach here
-        close(fd);
+        close(table->fd);
         return (0);
 }
 
@@ -119,7 +119,7 @@ int	ft_check_elf_headers_32(t_table *table)
         printf("program hrader %d %d %d %ld\n", table->elf32.e_phoff, table->elf32.e_phnum, table->elf32.e_phentsize, table->st.st_size);
         if (table->elf32.e_phoff + (table->elf32.e_phnum * table->elf32.e_phentsize) > table->st.st_size)
         {
-                if (elf32.e_phoff == 0)
+                if (table->elf32.e_phoff == 0)
                         ft_display_error("ft_nm: warning, missing program header\n");
         }
         //check sections header fit in file

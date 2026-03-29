@@ -16,7 +16,7 @@ int	ft_check_sections_headers_frames(t_table *table)
 			i++;
 			continue;
 		}
-		rd = read(fd, &section, table->elf64.e_shentsize);
+		rd = read(table->fd, &section, table->elf64.e_shentsize);
 		if (rd < sizeof(t_elf64_ehdr))
 		{
 			ft_display_error("ft_nm: error in sections header\n");

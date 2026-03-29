@@ -1,5 +1,5 @@
 #ifndef FT_NM_H
-#define FT_NM_H
+# define FT_NM_H
 
 # include <stdio.h>
 # include <unistd.h>
@@ -87,7 +87,6 @@ typedef struct  s_elf32_shdr
 	uint32_t	sh_entsize;    // size of each entry (if table)
 }               t_elf32_shdr;
 
-
 typedef struct s_elf64_sym
 {
 	uint32_t	st_name;	// offset into .strtab
@@ -118,54 +117,69 @@ typedef struct	s_output
 
 typedef struct	s_table
 {
+	int		fd;
+	int		is_64;
+	char		*filename;
+	struct stat 	st;
 	t_elf32_shdr    symtab32;
 	t_elf32_shdr    strtab32;
+	t_elf32_shdr    dymsym32;
+	t_elf32_shdr    dymstr32;
 	t_elf32_shdr    *sections32;
 	t_elf64_shdr    symtab64;
 	t_elf64_shdr    strtab64;
+	t_elf64_shdr    dymsym64;
+	t_elf64_shdr    dymstr64;
 	t_elf64_shdr    *sections64;
 	t_elf32_ehdr	elf32;
 	t_elf64_ehdr	elf64;
-	int		fd;
-	char		filename;
-	int		is_64;
-	struct stat 	st;
 }		t_table;
 
 
+//file :  ft_check_errors_one.c
+//int     ft_check_errors(int ac, char **av, int *is_64);
+//int     ft_check_file_exist_and_size(char *filename);
+int	ft_check_errors(int ac, char **av, t_table *table);
+int	ft_check_file_exist_and_size(char *filename, t_table *table);
+
+//file :  ft_check_errors_two.c
+//int     ft_check_elf_headers_32(int fd, t_elf32_ehdr elf32, size_t file_size, char *filename);
+//int     ft_check_if_its_elf_file_and_hdrs_exist(char *filename, int *is_64);
+int	ft_get_and_check_elf_header_magic_number(uint64_t *first8_ident,
+		uint64_t *second8_ident, t_elf64_ehdr elf64);
+int	ft_check_elf_headers_32(t_table *table);
+int	ft_check_if_its_elf_file_and_hdrs_exist(t_table *table);
 
 //file : ft_check_sections_header_frames.c
-int     ft_check_sections_headers_frames(int fd, t_elf64_ehdr elf64, size_t file_size);
-int     ft_check_sections_headers_frames_32(int fd, t_elf32_ehdr elf32, size_t file_size);
+//int     ft_check_sections_headers_frames(int fd, t_elf64_ehdr elf64, size_t file_size);
+//int     ft_check_sections_headers_frames_32(int fd, t_elf32_ehdr elf32, size_t file_size);
+int	ft_check_sections_headers_frames(t_table *table);
+int	ft_check_sections_headers_frames_32(t_table *table);
+
+//file : ft_check_strtab_and_symtab.c
+//int	ft_check_strtab_and_symtab(int fd, t_elf64_ehdr elf64, size_t size, char *filename);
+//int	ft_check_strtab_and_symtab_32(int fd, t_elf32_ehdr elf32, size_t size, char *filename);
+int	ft_check_strtab_and_symtab(t_table *table);
+int	ft_check_strtab_and_symtab_32(t_table *table);
 
 //file :  ft_display_error.c
 void    ft_display_error(char *error);
 
-//file :  ft_check_errors_one.c
-int     ft_check_errors(int ac, char **av, int *is_64);
-int     ft_check_file_exist_and_size(char *filename);
-
-//file :  ft_check_errors_two.c
-int     ft_check_elf_headers_32(int fd, t_elf32_ehdr elf32, size_t file_size, char *filename);
-int     ft_check_if_its_elf_file_and_hdrs_exist(char *filename, int *is_64);
-int	ft_get_and_check_elf_header_magic_number(uint64_t *first8_ident,
-		uint64_t *second8_ident, t_elf64_ehdr elf64);
-
-
-//file : ft_check_strtab_and_symtab.c
-int	ft_check_strtab_and_symtab(int fd, t_elf64_ehdr elf64, size_t size, char *filename);
-int	ft_check_strtab_and_symtab_32(int fd, t_elf32_ehdr elf32, size_t size, char *filename);
-
 //file : ft_loop_over_symbols.c 
-int     ft_loop_over_symbols(t_elf64_shdr symtab, t_elf64_shdr strtab, t_elf64_shdr *sections,char *av);
-int     ft_loop_over_symbols_32(t_elf32_shdr symtab, t_elf32_shdr strtab, t_elf32_shdr *sections,char *av);
+//int     ft_loop_over_symbols(t_elf64_shdr symtab, t_elf64_shdr strtab, t_elf64_shdr *sections,char *av);
+//int     ft_loop_over_symbols_32(t_elf32_shdr symtab, t_elf32_shdr strtab, t_elf32_shdr *sections,char *av);
+int	ft_loop_over_symbols_32(t_table *table);
+int	ft_loop_over_symbols_64(t_table *table);
+
+//file : ft_loop_over_dym_symbols.c 
+int	ft_loop_over_dym_symbols_32(t_table *table);
+int	ft_loop_over_dym_symbols_64(t_table *table);
 
 //file : ft_sort_display_output.c
 t_output	*ft_sort_output(t_output *data);
 void		ft_display_output(t_output *data);
+void		ft_clear_output(t_output **head);
 t_output	*ft_new_elem(long int addr, char type, char *name);
 void		ft_add_new_elem(t_output **head, long int addr, char type, char *name);
-
-
 
 #endif
