@@ -61,6 +61,33 @@ void ft_add_new_elem(t_output **head, long int addr, char type, char *name)
 	tmp->next = new_node;
 }
 
+int	ft_compare_nm(char *s1, char *s2)
+{
+	char *p1 = s1;
+	char *p2 = s2;
+
+	while (*p1 && *p2)
+	{
+		// Skip non-alphanumeric characters in both strings
+		while (*p1 && !isalnum(*p1))
+			p1++;
+		while (*p2 && !isalnum(*p2))
+			p2++;
+
+		if (!*p1 || !*p2)
+			break;
+
+		// Compare characters case-insensitively
+		if (tolower(*p1) != tolower(*p2))
+		    return (tolower(*p1) - tolower(*p2));
+		p1++;
+		p2++;
+ 	}
+    
+	// Fallback: If they are the same so far, use the original strcmp
+	return strcmp(s1, s2);
+}
+
 t_output *ft_sort_output(t_output *data)
 {
 	t_output	*i;
@@ -80,7 +107,8 @@ t_output *ft_sort_output(t_output *data)
 		i = data;
 		while (i->next)
 		{
-			if (strcmp(i->name, i->next->name) > 0)
+			//if (strcmp(i->name, i->next->name) > 0)
+			if (ft_compare_nm(i->name, i->next->name) > 0)
 			{
 				// swap CONTENT (not nodes)
 				tmp_addr = i->addr;

@@ -10,6 +10,7 @@
 # include <fcntl.h>
 # include <string.h>
 # include <elf.h>
+# include <ctype.h>
 
 # define SHT_NULL	0
 # define SHT_PROGBITS	1
@@ -172,6 +173,7 @@ int	ft_loop_over_symbols_32(t_table *table);
 int	ft_loop_over_symbols_64(t_table *table);
 
 //file : ft_loop_over_dym_symbols.c 
+char    ft_tolower(char c);
 int	ft_loop_over_dym_symbols_32(t_table *table);
 int	ft_loop_over_dym_symbols_64(t_table *table);
 

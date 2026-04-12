@@ -1,10 +1,18 @@
 #include "./ft_nm.h"
 
+char    ft_tolower(char c)
+{
+	if (c >= 'A' && c <= 'Z')
+		return (c + 32);
+	return (c);
+}
+
 int	ft_loop_over_dym_symbols_32(t_table *table)
 {
 	char		*file;
 	struct stat	st;
 	t_output	*data;
+	unsigned char   sym_type;
 
 	table->fd = open(table->filename, O_RDONLY);
 	if (table->fd < 0)
@@ -32,6 +40,7 @@ int	ft_loop_over_dym_symbols_32(t_table *table)
 	for (int i = 0; i < count; i++)
 	{
 	    // validate name offset
+		sym_type = ELF32_ST_TYPE(syms[i].st_info);
 		if (syms[i].st_name >= table->dymstr32.sh_size)
 			continue;
 
@@ -44,29 +53,59 @@ int	ft_loop_over_dym_symbols_32(t_table *table)
 		if (name[0] == '\0')
 		    continue;
 
-		char type;
-
+		char type = '?';
+		unsigned char bind = ELF32_ST_BIND(syms[i].st_info);
 		// 🔥 UNDEFINED
 		if (syms[i].st_shndx == SHN_UNDEF)
-			type = 'U';
+		    type = 'U';
 
-		// 🔥 INVALID index protection
+		// 🔥 ABSOLUTE
+		else if (syms[i].st_shndx == SHN_ABS)
+		    type = 'A';
+
+		// 🔥 COMMON
+		else if (syms[i].st_shndx == SHN_COMMON)
+		    type = 'C';
+
+		// 🔥 GNU IFUNC (indirect function)
+		else if (sym_type == STT_GNU_IFUNC)
+		    type = 'I';
+
+		// 🔥 INVALID / RESERVED
 		else if (syms[i].st_shndx >= SHN_LORESERVE)
-			type = '?';
+		    type = '?';
 
 		else
 		{
-			 t_elf32_shdr sec = table->sections32[syms[i].st_shndx];
-
+			t_elf64_shdr sec = table->sections64[syms[i].st_shndx];
 			if (sec.sh_type == SHT_NOBITS)
-				type = 'B';
+			    type = 'B';
 			else if (sec.sh_flags & SHF_EXECINSTR)
-				type = 'T';
+			    type = 'T';
 			else if (sec.sh_flags & SHF_WRITE)
-				type = 'D';
+			    type = 'D';
+			else if (sec.sh_flags & SHF_ALLOC)
+			    type = 'R';
 			else
-				type = 'R';
+				type = 'N'; // debug or non-alloc
 		}
+
+		// 🔥 WEAK symbols override (IMPORTANT: after base type)
+		if (bind == STB_WEAK)
+		{
+			if (syms[i].st_shndx == SHN_UNDEF)
+				type = 'w';
+			else if (sym_type == STT_OBJECT)
+				type = 'V';
+			else
+				type = 'W';
+		}
+
+		// 🔥 LOCAL → lowercase (except special '?')
+		if (bind == STB_LOCAL && type != '?')
+			type = ft_tolower(type);
+
+
 		ft_add_new_elem(&data, syms[i].st_value, type, name);
 		//printf("%016x %c %s\n", syms[i].st_value, type, name);
 	}
@@ -78,8 +117,9 @@ int	ft_loop_over_dym_symbols_32(t_table *table)
 
 int ft_loop_over_dym_symbols_64(t_table *table)
 {
-    char            *file;
-    t_output        *data;
+	char            *file;
+	t_output        *data;
+	unsigned char   sym_type;
 
     table->fd = open(table->filename, O_RDONLY);
     if (table->fd < 0)
@@ -108,6 +148,7 @@ int ft_loop_over_dym_symbols_64(t_table *table)
     for (int i = 0; i < count; i++)
     {
         // validate name offset
+	sym_type = ELF64_ST_TYPE(syms[i].st_info);
         if (syms[i].st_name >= table->dymstr64.sh_size)
             continue;
 
@@ -127,39 +168,62 @@ int ft_loop_over_dym_symbols_64(t_table *table)
 
         char type = '?';
         unsigned char bind = ELF64_ST_BIND(syms[i].st_info);
+		// 🔥 UNDEFINED
+		if (syms[i].st_shndx == SHN_UNDEF)
+		    type = 'U';
 
-        // 🔥 WEAK symbols FIRST (priority)
-        if (bind == STB_WEAK)
-        {
-            if (syms[i].st_shndx == SHN_UNDEF)
-                type = 'w';
-            else
-                type = 'W';
-        }
-        else if (syms[i].st_shndx == SHN_UNDEF)
-        {
-            type = 'U';
-        }
-	else if (syms[i].st_shndx < table->elf64.e_shnum)
-        {
-            t_elf64_shdr sec = table->sections64[syms[i].st_shndx];
+		// 🔥 ABSOLUTE
+		else if (syms[i].st_shndx == SHN_ABS)
+		    type = 'A';
 
-            if (sec.sh_type == SHT_NOBITS)
-                type = 'B';
-            else if (sec.sh_flags & SHF_EXECINSTR)
-                type = 'T';
-            else if (sec.sh_flags & SHF_WRITE)
-                type = 'D';
-            else
-                type = 'R';
-        }
+		// 🔥 COMMON
+		else if (syms[i].st_shndx == SHN_COMMON)
+		    type = 'C';
+
+		// 🔥 GNU IFUNC (indirect function)
+		else if (sym_type == STT_GNU_IFUNC)
+		    type = 'I';
+
+		// 🔥 INVALID / RESERVED
+		else if (syms[i].st_shndx >= SHN_LORESERVE)
+		    type = '?';
+
+		else
+		{
+			t_elf64_shdr sec = table->sections64[syms[i].st_shndx];
+			if (sec.sh_type == SHT_NOBITS)
+			    type = 'B';
+			else if (sec.sh_flags & SHF_EXECINSTR)
+			    type = 'T';
+			else if (sec.sh_flags & SHF_WRITE)
+			    type = 'D';
+			else if (sec.sh_flags & SHF_ALLOC)
+			    type = 'R';
+			else
+				type = 'N'; // debug or non-alloc
+		}
+
+		// 🔥 WEAK symbols override (IMPORTANT: after base type)
+		if (bind == STB_WEAK)
+		{
+			if (syms[i].st_shndx == SHN_UNDEF)
+				type = 'w';
+			else if (sym_type == STT_OBJECT)
+				type = 'V';
+			else
+				type = 'W';
+		}
+
+		// 🔥 LOCAL → lowercase (except special '?')
+		if (bind == STB_LOCAL && type != '?')
+			type = ft_tolower(type);
 
         ft_add_new_elem(&data, syms[i].st_value, type, name);
     }
 
     data = ft_sort_output(data);
-    ft_display_output(data);
-    ft_clear_output(&data);
+    //ft_display_output(data);
+    //ft_clear_output(&data);
 
     return (0);
 }
