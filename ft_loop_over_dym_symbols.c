@@ -10,7 +10,6 @@ char    ft_tolower(char c)
 int	ft_loop_over_dym_symbols_32(t_table *table)
 {
 	char		*file;
-	struct stat	st;
 	t_output	*data;
 	unsigned char   sym_type;
 
@@ -26,8 +25,8 @@ int	ft_loop_over_dym_symbols_32(t_table *table)
 
 	// safety checks
 	if (table->dymsym32.sh_entsize == 0 ||
-		table->dymsym32.sh_offset + table->dymsym32.sh_size > table->st.st_size ||
-		table->dymstr32.sh_offset + table->dymstr32.sh_size > table->st.st_size)
+		table->dymsym32.sh_offset + table->dymsym32.sh_size > (long unsigned int) table->st.st_size ||
+		table->dymstr32.sh_offset + table->dymstr32.sh_size > (long unsigned int) table->st.st_size)
 		return (1);
 
 	int count = table->dymsym32.sh_size / table->dymsym32.sh_entsize;
@@ -134,8 +133,8 @@ int ft_loop_over_dym_symbols_64(t_table *table)
 
     // safety checks
     if (table->dymsym64.sh_entsize == 0 ||
-        table->dymsym64.sh_offset + table->dymsym64.sh_size > table->st.st_size ||
-        table->dymstr64.sh_offset + table->dymstr64.sh_size > table->st.st_size)
+        table->dymsym64.sh_offset + table->dymsym64.sh_size > (long unsigned int) table->st.st_size ||
+        table->dymstr64.sh_offset + table->dymstr64.sh_size > (long unsigned int) table->st.st_size)
         return (1);
 
     int count = table->dymsym64.sh_size / table->dymsym64.sh_entsize;

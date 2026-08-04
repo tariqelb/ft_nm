@@ -11,6 +11,8 @@
 # include <string.h>
 # include <elf.h>
 # include <ctype.h>
+# include <stddef.h>
+
 
 # define SHT_NULL	0
 # define SHT_PROGBITS	1
@@ -136,6 +138,21 @@ typedef struct	s_table
 	t_elf64_ehdr	elf64;
 }		t_table;
 
+typedef struct s_data
+{
+	char		*file;
+	unsigned char	sym_type;
+	int             count;
+	char		*strtab_data;
+	char 		*name;
+	char		type;
+	unsigned char	bind;
+	t_elf64_sym	*syms64;
+	t_elf32_sym	*syms32;
+	t_elf64_shdr	sec64;
+	t_elf32_shdr	sec32;
+}		t_data;
+
 
 //file :  ft_check_errors_one.c
 //int     ft_check_errors(int ac, char **av, int *is_64);
@@ -146,10 +163,15 @@ int	ft_check_file_exist_and_size(char *filename, t_table *table);
 //file :  ft_check_errors_two.c
 //int     ft_check_elf_headers_32(int fd, t_elf32_ehdr elf32, size_t file_size, char *filename);
 //int     ft_check_if_its_elf_file_and_hdrs_exist(char *filename, int *is_64);
-int	ft_get_and_check_elf_header_magic_number(uint64_t *first8_ident,
-		uint64_t *second8_ident, t_elf64_ehdr elf64);
-int	ft_check_elf_headers_32(t_table *table);
+int     ft_get_magin_helper(uint64_t *f, uint64_t *s, t_elf64_ehdr elf64, int i);
+int	ft_get_check_elf_header_magic_nbr(t_elf64_ehdr elf64);
+int	ft_check_magic_number_and_ehdr_size(t_table *table);
 int	ft_check_if_its_elf_file_and_hdrs_exist(t_table *table);
+int     ft_lseek_read_ehdr_32(t_table *table);
+
+//file : ft_check_headers_fit_in_file.c
+int	ft_check_elf_headers_32(t_table *table);
+int	ft_check_elf_headers_64(t_table *table);
 
 //file : ft_check_sections_header_frames.c
 //int     ft_check_sections_headers_frames(int fd, t_elf64_ehdr elf64, size_t file_size);
@@ -160,11 +182,20 @@ int	ft_check_sections_headers_frames_32(t_table *table);
 //file : ft_check_strtab_and_symtab.c
 //int	ft_check_strtab_and_symtab(int fd, t_elf64_ehdr elf64, size_t size, char *filename);
 //int	ft_check_strtab_and_symtab_32(int fd, t_elf32_ehdr elf32, size_t size, char *filename);
-int	ft_check_strtab_and_symtab(t_table *table);
-int	ft_check_strtab_and_symtab_32(t_table *table);
+int     ft_get_symtab_dymsym_64(t_table *table, int *symtab_exist, int *dymsym_exist);
+int     ft_get_strtab_dymstr_64(t_table *table, int symtab_exist, int dymsym_exist);
+int     ft_check_strtab_symtab_err_64(t_table *table);
+int     ft_check_strtab_and_symtab(t_table *table);
+
+//file : ft_check_strtab_and_symtab_32.c
+int     ft_get_symtab_dymsym_32(t_table *table, int *symtab_exist, int *dymsym_exist);
+int     ft_get_strtab_dymstr_32(t_table *table, int symtab_exist, int dymsym_exist);
+int     ft_check_strtab_symtab_err_32(t_table *table);
+int     ft_check_strtab_and_symtab_32(t_table *table);
+
 
 //file :  ft_display_error.c
-void    ft_display_error(char *error);
+int    ft_display_error(char *error);
 
 //file : ft_loop_over_symbols.c 
 //int     ft_loop_over_symbols(t_elf64_shdr symtab, t_elf64_shdr strtab, t_elf64_shdr *sections,char *av);
@@ -183,5 +214,14 @@ void		ft_display_output(t_output *data);
 void		ft_clear_output(t_output **head);
 t_output	*ft_new_elem(long int addr, char type, char *name);
 void		ft_add_new_elem(t_output **head, long int addr, char type, char *name);
+
+
+//file : ft_display_sym_data.c
+void	ft_display_section_temp_32(t_table *table, int i, int rd);
+void	ft_display_section_temp_64(t_table *table, int i, int rd);
+
+//file : ft_memchr.c
+void    *ft_memchr(const void *s, int c, size_t n);
+
 
 #endif
