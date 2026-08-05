@@ -64,6 +64,7 @@ int	ft_compare_nm(char *s1, char *s2)
 {
 	char	*p1;
 	char	*p2;
+	int		res;
 
 	p1 = s1;
 	p2 = s2;
@@ -80,7 +81,11 @@ int	ft_compare_nm(char *s1, char *s2)
 		p1++;
 		p2++;
 	}
-	return (strcmp(s1, s2));
+	res = strcmp(p1, p2);
+	if (res == 0)
+		return (strcmp(s1, s2));
+	else
+		return (res);
 }
 
 void	ft_display_output(t_output *data)

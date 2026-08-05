@@ -1,0 +1,8 @@
+                 U close
+0000000000000000 T ft_check_elf_headers_32
+0000000000000149 T ft_check_elf_headers_64
+                 U ft_check_sections_headers_frames
+                 U ft_check_sections_headers_frames_32
+                 U ft_check_strtab_and_symtab
+                 U ft_check_strtab_and_symtab_32
+                 U ft_display_error

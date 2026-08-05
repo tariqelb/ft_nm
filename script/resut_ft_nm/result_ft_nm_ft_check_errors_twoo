@@ -1,0 +1,15 @@
+                 U close
+                 U fstat
+                 U ft_check_elf_headers_32
+                 U ft_check_elf_headers_64
+00000000000003d6 T ft_check_if_its_elf_file_and_hdrs_exist
+00000000000001c4 T ft_check_magic_number_and_ehdr_size
+                 U ft_display_error
+00000000000000ba T ft_get_check_elf_header_magic_nbr
+0000000000000000 T ft_get_magin_helper
+000000000000033b T ft_lseek_read_ehdr_32
+                 U lseek
+                 U open
+                 U perror
+                 U read
+                 U __stack_chk_fail

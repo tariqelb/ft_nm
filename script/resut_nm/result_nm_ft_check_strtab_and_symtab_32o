@@ -1,0 +1,11 @@
+                 U close
+000000000000042b T ft_check_strtab_and_symtab_32
+000000000000036d T ft_check_strtab_symtab_err_32
+                 U ft_display_error
+00000000000001e0 T ft_get_strtab_dymstr_32
+0000000000000000 T ft_get_symtab_dymsym_32
+                 U ft_loop_over_dym_symbols_32
+                 U lseek
+                 U malloc
+                 U read
+                 U __stack_chk_fail

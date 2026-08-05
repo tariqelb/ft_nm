@@ -6,13 +6,13 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 18:35:29 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/08/05 18:41:46 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/08/05 22:07:11 by tariq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_nm.h"
 
-void	ft_swap_data(t_output *data)
+void	ft_swap_data(t_output *i)
 {
 	long int	tmp_addr;
 	char		*tmp_name;

@@ -18,18 +18,28 @@ SRCS=	./ft_check_errors_one.c \
 	./ft_loop_over_symbols_64_util.c \
 	./ft_memchr.c \
 	./ft_nm.c \
+	./ft_sort_output.c \
 	./ft_sort_display_output.c
 
-FLAGS= -Werror -Wextra -Wall
+OBJS = $(SRCS:.c=.o)
 
-all:
-	gcc $(FLAGS) -o ${NAME} ${SRCS}
+CC = gcc
 
-cmp_test:
-	gcc -c read_elf_header.c
+CFLAGS = -Wall -Wextra -Werror
 
-exec:
-	./ft_nm.out read_elf_header.o
+all: $(NAME) #clean
 
-fclean:
-	/bin/rm -rf ${NAME}
+$(NAME): $(OBJS)
+	$(CC) -o $(NAME) -I . $(OBJS)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+

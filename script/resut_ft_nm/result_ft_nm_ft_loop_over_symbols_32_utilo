@@ -1,0 +1,11 @@
+                 U close
+                 U fstat
+                 U ft_clear_output
+                 U ft_display_error
+                 U ft_display_output
+0000000000000000 T ft_loopover_first_check_32
+0000000000000173 T ft_sort_display_clean_data_32
+                 U ft_sort_output
+                 U mmap
+                 U munmap
+                 U open

@@ -1,0 +1,12 @@
+                 U ft_add_new_elem
+                 U ft_loopover_first_check_32
+0000000000000000 T ft_loop_over_helper_1_32
+000000000000017b T ft_loop_over_helper_2_32
+000000000000033d T ft_loop_over_helper_3_32
+0000000000000416 T ft_loop_over_helper_4_32
+0000000000000485 T ft_loop_over_symbols_32
+                 U ft_memchr
+                 U ft_sort_display_clean_data_32
+                 U ft_tolower
+                 U munmap
+                 U __stack_chk_fail

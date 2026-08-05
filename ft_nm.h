@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 18:33:54 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/08/05 18:33:58 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/08/05 22:07:49 by tariq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,7 @@ int	ft_loop_over_dym_symbols_32(t_table *table);
 int	ft_loop_over_dym_symbols_64(t_table *table);
 
 //file : ft_sort_display_output.c
+int		ft_compare_nm(char *s1, char *s2);
 t_output	*ft_sort_output(t_output *data);
 void		ft_display_output(t_output *data);
 void		ft_clear_output(t_output **head);

@@ -1,0 +1,3 @@
+0000000000000060 T ft_get_symbol_type_32
+0000000000000000 t ft_get_util
+                 U __stack_chk_fail

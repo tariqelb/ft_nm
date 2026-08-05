@@ -1,0 +1,14 @@
+                 U fstat
+                 U ft_add_new_elem
+0000000000000080 t ft_apply_bind_rules
+                 U ft_get_symbol_type_32
+00000000000001d9 t ft_iter_symbols32
+00000000000002b8 T ft_loop_over_dym_symbols_32
+00000000000000fa t ft_process_symbol32
+                 U ft_sort_output
+                 U ft_tolower
+0000000000000000 t ft_validate_dynsym32
+                 U memchr
+                 U mmap
+                 U open
+                 U __stack_chk_fail

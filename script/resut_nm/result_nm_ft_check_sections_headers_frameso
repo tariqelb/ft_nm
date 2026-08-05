@@ -1,0 +1,6 @@
+0000000000000000 T ft_check_sections_headers_frames
+0000000000000122 T ft_check_sections_headers_frames_32
+                 U ft_display_error
+                 U lseek
+                 U read
+                 U __stack_chk_fail
