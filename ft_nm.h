@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_nm.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/05 18:33:54 by tel-bouh          #+#    #+#             */
+/*   Updated: 2026/08/05 18:33:58 by tel-bouh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_NM_H
 # define FT_NM_H
 
@@ -201,11 +213,26 @@ int    ft_display_error(char *error);
 //int     ft_loop_over_symbols(t_elf64_shdr symtab, t_elf64_shdr strtab, t_elf64_shdr *sections,char *av);
 //int     ft_loop_over_symbols_32(t_elf32_shdr symtab, t_elf32_shdr strtab, t_elf32_shdr *sections,char *av);
 int	ft_loop_over_symbols_32(t_table *table);
+
+//File : ft_loop_over_symbols_32_util.c
+int     ft_loopover_first_check_32(t_table *table, t_data *data_set);
+void    ft_sort_display_clean_data_32(t_table *table, t_output *data, t_data *data_set);
+
+//File : ft_loop_over_symbols_64_util.c 
+int     ft_loopover_first_check(t_table *table, t_data *data_set);
+void    ft_sort_display_clean_data(t_table *table, t_output *data, t_data *data_set);
+
+//file : ft_loop_over_symbols.c 
+int     ft_loop_over_helper_1(t_table *table, t_data *data_set, int i);
+void    ft_loop_over_helper_2(t_table *table, t_data *data_set, int i);
+t_output        *ft_loop_over_helper_3(t_data *data_set, int i, t_output *data);
+t_output        *ft_loop_over_helper_4_64(t_table *table, t_data data_set, t_output *data);
 int	ft_loop_over_symbols_64(t_table *table);
 
-//file : ft_loop_over_dym_symbols.c 
-char    ft_tolower(char c);
+//file : ft_loop_over_dym_symbols_32.c 
 int	ft_loop_over_dym_symbols_32(t_table *table);
+
+//file : ft_loop_over_dym_symbols.c 
 int	ft_loop_over_dym_symbols_64(t_table *table);
 
 //file : ft_sort_display_output.c
@@ -223,5 +250,11 @@ void	ft_display_section_temp_64(t_table *table, int i, int rd);
 //file : ft_memchr.c
 void    *ft_memchr(const void *s, int c, size_t n);
 
+//File : ft_loop_over_dym_symbols_32_util.c
+char     ft_get_symbol_type_32(t_table *table, t_elf32_sym *sym);
+
+//File : ft_loop_over_dym_symbols_64_util.c
+char    ft_tolower(char c);
+char    ft_get_symbol_type64(t_table *table, t_elf64_sym *sym);
 
 #endif

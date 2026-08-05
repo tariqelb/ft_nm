@@ -1,139 +1,90 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_sort_display_output.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/05 18:34:16 by tel-bouh          #+#    #+#             */
+/*   Updated: 2026/08/05 19:23:44 by tel-bouh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_nm.h"
 
-void    ft_clear_output(t_output **head)
+void	ft_clear_output(t_output **head)
 {
 	t_output	*tmp;
 
 	if (!head || !*head)
-		return;
-
+		return ;
 	while (*head)
 	{
 		tmp = (*head)->next;
-
-		// free allocated fields
 		free((*head)->name);
-
-		// free the node itself
 		free(*head);
-
 		*head = tmp;
 	}
 }
 
-t_output *ft_new_elem(long int addr, char type, char *name)
+t_output	*ft_new_elem(long int addr, char type, char *name)
 {
-	t_output *node;
+	t_output	*node;
 
 	node = malloc(sizeof(t_output));
 	if (!node)
 		return (NULL);
-
 	node->addr = addr;
 	node->type = type;
-	node->name = strdup(name); // VERY IMPORTANT
+	node->name = strdup(name);
 	node->next = NULL;
-
 	return (node);
 }
 
-void ft_add_new_elem(t_output **head, long int addr, char type, char *name)
+void	ft_add_new_elem(t_output **head, long int addr, char type, char *name)
 {
 	t_output	*new_node;
 	t_output	*tmp;
 
 	new_node = ft_new_elem(addr, type, name);
 	if (!new_node)
-		return;
-
-	// if list empty
+		return ;
 	if (*head == NULL)
 	{
 		*head = new_node;
-		return;
+		return ;
 	}
-
-	// go to last node
 	tmp = *head;
 	while (tmp->next)
 		tmp = tmp->next;
-
 	tmp->next = new_node;
 }
 
 int	ft_compare_nm(char *s1, char *s2)
 {
-	char *p1 = s1;
-	char *p2 = s2;
+	char	*p1;
+	char	*p2;
 
+	p1 = s1;
+	p2 = s2;
 	while (*p1 && *p2)
 	{
-		// Skip non-alphanumeric characters in both strings
 		while (*p1 && !isalnum(*p1))
 			p1++;
 		while (*p2 && !isalnum(*p2))
 			p2++;
-
 		if (!*p1 || !*p2)
-			break;
-
-		// Compare characters case-insensitively
+			break ;
 		if (tolower(*p1) != tolower(*p2))
-		    return (tolower(*p1) - tolower(*p2));
+			return (tolower(*p1) - tolower(*p2));
 		p1++;
 		p2++;
- 	}
-    
-	// Fallback: If they are the same so far, use the original strcmp
-	return strcmp(s1, s2);
-}
-
-t_output *ft_sort_output(t_output *data)
-{
-	t_output	*i;
-	int		swapped;
-	long int	tmp_addr;
-	char		*tmp_name;
-	char		tmp_type;
-
-	swapped = 1;
-
-	if (!data)
-	    return (NULL);
-
-	while (swapped)
-	{
-		swapped = 0;
-		i = data;
-		while (i->next)
-		{
-			//if (strcmp(i->name, i->next->name) > 0)
-			if (ft_compare_nm(i->name, i->next->name) > 0)
-			{
-				// swap CONTENT (not nodes)
-				tmp_addr = i->addr;
-				tmp_name = i->name;
-				tmp_type = i->type;
-
-				i->addr = i->next->addr;
-				i->name = i->next->name;
-				i->type = i->next->type;
-
-				i->next->addr = tmp_addr;
-				i->next->name = tmp_name;
-				i->next->type = tmp_type;
-
-				swapped = 1;
-			}
-			i = i->next;
-		}
 	}
-	return (data);
+	return (strcmp(s1, s2));
 }
 
 void	ft_display_output(t_output *data)
 {
-	printf("ft_display_output\n");
 	while (data != NULL)
 	{
 		if (data->type == 'U' || data->type == 'w' || data->type == 'v')

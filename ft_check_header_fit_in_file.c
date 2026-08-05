@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 00:37:49 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/04/15 01:24:34 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/08/04 18:26:46 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,15 @@ int	ft_check_elf_headers_32(t_table *table)
 	if (table->elf32.e_phoff + (table->elf32.e_phnum * table->elf32.e_phentsize)
 		> (long unsigned int) table->st.st_size)
 	{
-		ft_display_error("ft_nm: error in program header size\n");
-		err = 1;
+		err = ft_display_error("ft_nm: error in program header size\n");
 	}
-	if (table->elf32.e_phoff == 0 &&
-		(table->elf32.e_type == ET_EXEC || table->elf32.e_type == ET_DYN))
+	if (table->elf32.e_phoff == 0
+		&& (table->elf32.e_type == ET_EXEC || table->elf32.e_type == ET_DYN))
 		ft_display_error("ft_nm: warning, missing program header\n");
 	if (table->elf32.e_shoff + (table->elf32.e_shnum * table->elf32.e_shentsize)
 		> (long unsigned int) table->st.st_size)
 	{
-		ft_display_error("ft_nm: error, section headers missing in file\n");
-		err = 1;
+		err = ft_display_error("ft_nm: error, section headers missed\n");
 	}
 	if (err == 0 && ft_check_sections_headers_frames_32(table))
 		err = 1;
@@ -59,17 +57,15 @@ int	ft_check_elf_headers_64(t_table *table)
 	if (table->elf64.e_phoff + (table->elf64.e_phnum * table->elf64.e_phentsize)
 		> (long unsigned int) table->st.st_size)
 	{
-		ft_display_error("ft_nm: error in program header size\n");
-		err = 1;
+		err = ft_display_error("ft_nm: error in program header size\n");
 	}
-	if (table->elf64.e_phoff == 0 &&
-		(table->elf64.e_type == ET_EXEC || table->elf64.e_type == ET_DYN))
+	if (table->elf64.e_phoff == 0
+		&& (table->elf64.e_type == ET_EXEC || table->elf64.e_type == ET_DYN))
 		ft_display_error("ft_nm: warning, missing program header\n");
 	if (table->elf64.e_shoff + (table->elf64.e_shnum * table->elf64.e_shentsize)
 		> (long unsigned int) table->st.st_size)
 	{
-		ft_display_error("ft_nm: error, section headers missing in file\n");
-		err = 1;
+		err = ft_display_error("ft_nm: error, section headers missed\n");
 	}
 	if (err == 0 && ft_check_sections_headers_frames(table))
 		err = 1;

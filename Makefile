@@ -9,8 +9,13 @@ SRCS=	./ft_check_errors_one.c \
 	./ft_display_error.c \
 	./ft_display_sym_data.c \
 	./ft_loop_over_dym_symbols.c \
+	./ft_loop_over_dym_symbols_32.c \
+	./ft_loop_over_dym_symbols_32_util.c \
+	./ft_loop_over_dym_symbols_64_util.c \
 	./ft_loop_over_symbols_32.c \
+	./ft_loop_over_symbols_32_util.c \
 	./ft_loop_over_symbols.c \
+	./ft_loop_over_symbols_64_util.c \
 	./ft_memchr.c \
 	./ft_nm.c \
 	./ft_sort_display_output.c
