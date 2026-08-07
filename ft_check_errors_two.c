@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 00:19:25 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/04/15 02:20:00 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/08/07 01:29:46 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ int	ft_get_check_elf_header_magic_nbr(t_elf64_ehdr elf64)
 	}
 	if (elf64.e_ident[4] != ELFCLASS32 && elf64.e_ident[4] != ELFCLASS64)
 		return (1);
-	if (elf64.e_ident[5] != ELFDATA2LSB && elf64.e_ident[5] != ELFDATA2MSB)
-		return (1);
+	if (elf64.e_ident[5] != ELFDATA2LSB)
+		return (ft_display_error("ft_nm: error unsupported endian\n"));
 	if (elf64.e_ident[6] != EV_CURRENT)
 		return (1);
 	return (0);
