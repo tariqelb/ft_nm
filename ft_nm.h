@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 18:33:54 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/08/05 22:07:49 by tariq            ###   ########.fr       */
+/*   Updated: 2026/08/07 23:13:10 by tariq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,14 +112,14 @@ typedef struct s_elf64_sym
 	uint64_t	st_size;
 }	t_elf64_sym;
 
-typedef struct s_elf32_sym
+typedef struct  s_elf32_syn
 {
-	uint32_t	st_name;	// offset into .strtab
-	unsigned char	st_info;
-	unsigned char	st_other;
-	uint16_t	st_shndx;	// section index
-	uint32_t	st_value;	// symbol value (address)
-	uint32_t	st_size;
+	uint32_t	st_name;   // 4 bytes
+	uint32_t	st_value;  // 4 bytes
+	uint32_t	st_size;   // 4 bytes
+	uint8_t		st_info;   // 1 byte
+	uint8_t		st_other;  // 1 byte
+	uint16_t	st_shndx;  // 2 bytes
 }	t_elf32_sym;
 
 typedef struct	s_output
@@ -238,7 +238,7 @@ int	ft_loop_over_dym_symbols_64(t_table *table);
 //file : ft_sort_display_output.c
 int		ft_compare_nm(char *s1, char *s2);
 t_output	*ft_sort_output(t_output *data);
-void		ft_display_output(t_output *data);
+void		ft_display_output(t_output *data, int is_64_bit);
 void		ft_clear_output(t_output **head);
 t_output	*ft_new_elem(long int addr, char type, char *name);
 void		ft_add_new_elem(t_output **head, long int addr, char type, char *name);

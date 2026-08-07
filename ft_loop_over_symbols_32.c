@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 01:04:56 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/08/04 23:05:52 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/08/07 22:49:47 by tariq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	ft_loop_over_symbols_32(t_table *table)
 	data_set.syms32 = (t_elf32_sym *)(data_set.file
 			+ table->symtab32.sh_offset);
 	data_set.strtab_data = (char *)(data_set.file + table->strtab32.sh_offset);
-	ft_loop_over_helper_4_32(table, data_set, data);
+	data = ft_loop_over_helper_4_32(table, data_set, data);
 	ft_sort_display_clean_data_32(table, data, &data_set);
 	return (0);
 }

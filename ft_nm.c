@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 00:24:29 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/04/16 02:52:38 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/08/07 23:13:36 by tariq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	if (table.is_64 == 1)
+	{
 		ft_loop_over_symbols_32(&table);
+	}
 	else
 		ft_loop_over_symbols_64(&table);
 	ft_free(table);

@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 18:34:16 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/08/05 19:23:44 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/08/07 22:55:23 by tariq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,24 @@ int	ft_compare_nm(char *s1, char *s2)
 		return (res);
 }
 
-void	ft_display_output(t_output *data)
+void	ft_display_output(t_output *data, int is_64_bit)
 {
 	while (data != NULL)
 	{
 		if (data->type == 'U' || data->type == 'w' || data->type == 'v')
-			printf("%16s %c %s\n", "", data->type, data->name);
+		{
+			if (is_64_bit)
+				printf("%8s %c %s\n", "", data->type, data->name);
+			else
+				printf("%16s %c %s\n", "", data->type, data->name);
+		}
 		else
-			printf("%016lx %c %s\n", data->addr, data->type, data->name);
+		{
+			if (is_64_bit)
+				printf("%08lx %c %s\n", data->addr, data->type, data->name);
+			else
+				printf("%016lx %c %s\n", data->addr, data->type, data->name);
+		}
 		data = data->next;
 	}
 }

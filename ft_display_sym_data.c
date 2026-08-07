@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 04:22:41 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/04/15 23:47:37 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/08/07 02:00:12 by tariq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_display_section_temp_32(t_table *table, int i, int rd)
 {
+	printf("ft_display_section_temp_32 : %d\n", table->sections32[i].sh_type);
 	if (table->sections32[i].sh_type == 2 || table->sections32[i].sh_type == 3
 		|| table->sections32[i].sh_type == SHT_DYNSYM)
 	{

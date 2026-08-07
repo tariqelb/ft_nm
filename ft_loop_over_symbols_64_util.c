@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 22:48:27 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/08/04 22:58:25 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/08/07 22:56:23 by tariq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ void	ft_sort_display_clean_data(t_table *table,
 {
 	munmap(data_set->file, table->st.st_size);
 	data = ft_sort_output(data);
-	ft_display_output(data);
+	ft_display_output(data, table->is_64);
 	ft_clear_output(&data);
 }

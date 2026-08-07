@@ -23,9 +23,13 @@ SRCS=	./ft_check_errors_one.c \
 
 OBJS = $(SRCS:.c=.o)
 
+OBJS32  = $(SRCS:.c=.32.o)
+
 CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
+
+CFLAGS32 =  -m32
 
 all: $(NAME) #clean
 
@@ -35,8 +39,13 @@ $(NAME): $(OBJS)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+make32: $(OBJS32)
+
+%.32.o: %.c
+	$(CC) $(CFLAGS32) -c $< -o $@
+
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(OBJS32)
 
 fclean: clean
 	rm -f $(NAME)
