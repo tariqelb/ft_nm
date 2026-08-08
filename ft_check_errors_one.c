@@ -6,22 +6,22 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 00:17:10 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/08/07 23:14:03 by tariq            ###   ########.fr       */
+/*   Updated: 2026/08/08 03:29:21 by tariq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_nm.h"
 
-int	ft_check_errors(int ac, char **av, t_table *table)
+int	ft_check_errors(int ac, char *av, t_table *table)
 {
 	if (ac < 2)
 	{
 		ft_display_error("ft_nm : Error, messing file argument\n");
 		return (1);
 	}
-	if (ft_check_file_exist_and_size(av[1], table))
+	if (ft_check_file_exist_and_size(av, table))
 		return (1);
-	table->filename = av[1];
+	table->filename = av;
 	if (ft_check_if_its_elf_file_and_hdrs_exist(table))
 		return (1);
 	return (0);

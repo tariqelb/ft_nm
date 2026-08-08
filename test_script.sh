@@ -25,7 +25,7 @@ mkdir -p "$output_dir/$result_ft_nm"
 mkdir -p "$output_dir/$diff_dir"
 
 # Run ft_nm and save output
-./ft_nm.out $nm_options "$file" > "$ft_nm_output" 2>> "$ft_nm_output"
+./ft_nm $nm_options "$file" > "$ft_nm_output" 2>> "$ft_nm_output"
 
 # Run nm and save output
 nm $nm_options "$file" > "$nm_output" 2>> "$nm_output"

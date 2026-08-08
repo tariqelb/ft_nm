@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 18:33:54 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/08/07 23:13:10 by tariq            ###   ########.fr       */
+/*   Updated: 2026/08/08 03:28:59 by tariq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ typedef struct s_data
 //file :  ft_check_errors_one.c
 //int     ft_check_errors(int ac, char **av, int *is_64);
 //int     ft_check_file_exist_and_size(char *filename);
-int	ft_check_errors(int ac, char **av, t_table *table);
+int	ft_check_errors(int ac, char *av, t_table *table);
 int	ft_check_file_exist_and_size(char *filename, t_table *table);
 
 //file :  ft_check_errors_two.c

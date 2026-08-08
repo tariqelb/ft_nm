@@ -1,4 +1,4 @@
-NAME= ft_nm.out
+NAME= ft_nm
 
 SRCS=	./ft_check_errors_one.c \
 	./ft_check_errors_two.c \

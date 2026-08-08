@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 18:34:16 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/08/07 22:55:23 by tariq            ###   ########.fr       */
+/*   Updated: 2026/08/08 02:23:21 by tariq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,14 @@ void	ft_display_output(t_output *data, int is_64_bit)
 	{
 		if (data->type == 'U' || data->type == 'w' || data->type == 'v')
 		{
-			if (is_64_bit)
+			if (is_64_bit == 1)
 				printf("%8s %c %s\n", "", data->type, data->name);
 			else
 				printf("%16s %c %s\n", "", data->type, data->name);
 		}
 		else
 		{
-			if (is_64_bit)
+			if (is_64_bit == 1)
 				printf("%08lx %c %s\n", data->addr, data->type, data->name);
 			else
 				printf("%016lx %c %s\n", data->addr, data->type, data->name);

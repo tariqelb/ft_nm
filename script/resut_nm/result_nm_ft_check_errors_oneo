@@ -1,7 +1,7 @@
                  U close
                  U fstat
 0000000000000000 T ft_check_errors
-0000000000000086 T ft_check_file_exist_and_size
+000000000000007b T ft_check_file_exist_and_size
                  U ft_check_if_its_elf_file_and_hdrs_exist
                  U ft_display_error
                  U open
