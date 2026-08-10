@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 04:14:40 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/04/16 00:15:42 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/08/10 22:05:54 by tariq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	ft_get_symtab_dymsym_64(t_table *table, int *symtab_exist,
 		rd = read(table->fd, &table->sections64[i], table->elf64.e_shentsize);
 		if (rd == -1)
 			return (ft_display_error("ft_nm: error reading file\n"));
-		//ft_display_section_temp_64(table, i, rd);//temp
 		if (table->sections64[i].sh_type == SHT_DYNSYM)
 		{
 			table->dymsym64 = table->sections64[i];

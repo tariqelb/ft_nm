@@ -64,29 +64,39 @@ test_moins_facile:
 0000000000004018 D __TMC_END__
 0000000000004010 D une_globale
 
-ft_check_errors_one.o:
-                 U close
-                 U fstat
-0000000000000000 T ft_check_errors
-000000000000007b T ft_check_file_exist_and_size
-                 U ft_check_if_its_elf_file_and_hdrs_exist
-                 U ft_display_error
-                 U open
-                 U perror
-
-ft_check_errors_two.o:
-                 U close
-                 U fstat
-                 U ft_check_elf_headers_32
-                 U ft_check_elf_headers_64
-00000000000003d8 T ft_check_if_its_elf_file_and_hdrs_exist
-00000000000001c6 T ft_check_magic_number_and_ehdr_size
-                 U ft_display_error
-00000000000000ba T ft_get_check_elf_header_magic_nbr
-0000000000000000 T ft_get_magin_helper
-000000000000033d T ft_lseek_read_ehdr_32
-                 U lseek
-                 U open
-                 U perror
-                 U read
-                 U __stack_chk_fail
+test_moins_facile_32-bit:
+000001cc r __abi_tag
+0000400c B __bss_start
+0000400c b completed.0
+         w __cxa_finalize@GLIBC_2.1.3
+00004000 D __data_start
+00004000 W data_start
+000010a0 t deregister_tm_clones
+00001130 t __do_global_dtors_aux
+00003edc d __do_global_dtors_aux_fini_array_entry
+00004004 D __dso_handle
+00003ee0 d _DYNAMIC
+0000400c D _edata
+00004010 B _end
+000011d4 T _fini
+00002000 R _fp_hw
+00001180 t frame_dummy
+00003ed8 d __frame_dummy_init_array_entry
+00002118 r __FRAME_END__
+00003fd8 d _GLOBAL_OFFSET_TABLE_
+         w __gmon_start__
+00002020 r __GNU_EH_FRAME_HDR
+00001000 T _init
+00002004 R _IO_stdin_used
+         w _ITM_deregisterTMCloneTable
+         w _ITM_registerTMCloneTable
+         U __libc_start_main@GLIBC_2.34
+0000118d T main
+         U printf@GLIBC_2.0
+000010e0 t register_tm_clones
+00001060 T _start
+0000400c D __TMC_END__
+00004008 D une_globale
+000011d0 T __x86.get_pc_thunk.ax
+00001090 T __x86.get_pc_thunk.bx
+00001189 T __x86.get_pc_thunk.dx

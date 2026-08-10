@@ -1,0 +1,37 @@
+
+test_moins_facile_32-bit:
+000001cc r __abi_tag
+0000400c B __bss_start
+0000400c b completed.0
+         w __cxa_finalize@GLIBC_2.1.3
+00004000 D __data_start
+00004000 W data_start
+000010a0 t deregister_tm_clones
+00001130 t __do_global_dtors_aux
+00003edc d __do_global_dtors_aux_fini_array_entry
+00004004 D __dso_handle
+00003ee0 d _DYNAMIC
+0000400c D _edata
+00004010 B _end
+000011d4 T _fini
+00002000 R _fp_hw
+00001180 t frame_dummy
+00003ed8 d __frame_dummy_init_array_entry
+00002118 r __FRAME_END__
+00003fd8 d _GLOBAL_OFFSET_TABLE_
+         w __gmon_start__
+00002020 r __GNU_EH_FRAME_HDR
+00001000 T _init
+00002004 R _IO_stdin_used
+         w _ITM_deregisterTMCloneTable
+         w _ITM_registerTMCloneTable
+         U __libc_start_main@GLIBC_2.34
+0000118d T main
+         U printf@GLIBC_2.0
+000010e0 t register_tm_clones
+00001060 T _start
+0000400c D __TMC_END__
+00004008 D une_globale
+000011d0 T __x86.get_pc_thunk.ax
+00001090 T __x86.get_pc_thunk.bx
+00001189 T __x86.get_pc_thunk.dx

@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/04 22:05:35 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/08/04 22:08:58 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/08/10 22:06:23 by tariq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ static int	ft_iter_symbols64(t_table *table, char *file)
 		i++;
 	}
 	data = ft_sort_output(data);
-	//ft_display_output(data);
-	//ft_clear_output(&data);
 	return (0);
 }
 
