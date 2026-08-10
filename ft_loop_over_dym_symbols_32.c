@@ -85,6 +85,7 @@ static int	ft_iter_symbols32(t_table *table, char *file)
 		i++;
 	}
 	data = ft_sort_output(data);
+	ft_clear_output(&data);
 	return (0);
 }
 

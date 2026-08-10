@@ -25,6 +25,7 @@ void	ft_clear_output(t_output **head)
 		free(*head);
 		*head = tmp;
 	}
+	head = NULL;
 }
 
 t_output	*ft_new_elem(long int addr, char type, char *name)

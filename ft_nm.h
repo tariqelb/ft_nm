@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 18:33:54 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/08/10 22:20:38 by tariq            ###   ########.fr       */
+/*   Updated: 2026/08/10 23:42:40 by tariq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,7 @@ void		ft_sort_display_clean_data(t_table *table,
 int			ft_loop_over_helper_1(t_table *table, t_data *data_set, int i);
 void		ft_loop_over_helper_2(t_table *table, t_data *data_set, int i);
 t_output	*ft_loop_over_helper_3(t_data *data_set, int i, t_output *data);
-t_output        *ft_loop_over_helper_4_64(t_table *table,
+t_output	*ft_loop_over_helper_4_64(t_table *table,
 				t_data data_set, t_output *data);
 int			ft_loop_over_symbols_64(t_table *table);
 

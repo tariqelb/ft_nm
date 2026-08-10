@@ -53,6 +53,7 @@ static int	ft_process_symbol64(t_table *table, t_elf64_sym *sym,
 	char	type;
 	int		st_type;
 
+	(void) data;
 	if (sym->st_name >= table->dymstr64.sh_size)
 		return (0);
 	name = strtab + sym->st_name;
@@ -89,6 +90,7 @@ static int	ft_iter_symbols64(t_table *table, char *file)
 		i++;
 	}
 	data = ft_sort_output(data);
+	ft_clear_output(&data);
 	return (0);
 }
 
